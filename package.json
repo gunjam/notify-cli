@@ -1,0 +1,54 @@
+{
+  "name": "govuk-notify-cli",
+  "version": "0.1.0",
+  "description": "Get info on sent notifications",
+  "homepage": "https://github.com/gunjam/nofitfy-cli",
+  "bugs": "https://github.com/gunjam/nofitfy-cli/issues",
+  "repository": "gunjam/nofitfy-cli",
+  "license": "MIT",
+  "author": "Niall Molloy",
+  "type": "module",
+  "bin": {
+    "notifycli": "./bin/run.js"
+  },
+  "files": ["/bin", "/src", "/oclif.manifest.json"],
+  "scripts": {
+    "lint": "eslint .",
+    "prepack": "oclif manifest && oclif readme",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "test": "mocha --jobs 1 \"test/**/*.test.js\"",
+    "posttest": "npm run lint",
+    "version": "oclif readme && git add README.md"
+  },
+  "oclif": {
+    "bin": "notifycli",
+    "commands": "./src/commands",
+    "hooks": {
+      "init": "./src/hooks/init/load-config"
+    },
+    "plugins": ["@oclif/plugin-help"],
+    "topicSeparator": " "
+  },
+  "dependencies": {
+    "@oclif/core": "^3.26.2",
+    "@oclif/plugin-help": "^6.0.20",
+    "notifications-node-client": "^8.0.0",
+    "ora": "^8.0.1",
+    "tty-table": "^4.2.3"
+  },
+  "devDependencies": {
+    "@oclif/prettier-config": "^0.2.1",
+    "@oclif/test": "^3.2.9",
+    "eslint": "^8.57.0",
+    "eslint-config-oclif": "^5.1.1",
+    "eslint-config-prettier": "^9.1.0",
+    "mocha": "^10.4.0",
+    "nock": "^13.5.4",
+    "oclif": "^4.8.0",
+    "shx": "^0.3.4",
+    "sinon": "^17.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
