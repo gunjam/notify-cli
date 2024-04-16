@@ -14,7 +14,7 @@ $ npm install -g govuk-notify-cli
 $ notifycli COMMAND
 running command...
 $ notifycli (--version)
-govuk-notify-cli/0.1.0 darwin-arm64 node-v21.7.1
+govuk-notify-cli/0.2.0 darwin-arm64 node-v21.7.1
 $ notifycli --help [COMMAND]
 USAGE
   $ notifycli COMMAND
@@ -59,10 +59,13 @@ List recent notifcations for a Notify service
 
 ```
 USAGE
-  $ notifycli list SERVICENAME
+  $ notifycli list SERVICENAME [-j]
 
 ARGUMENTS
   SERVICENAME  The name of the Notify service
+
+FLAGS
+  -j, --json  Output API JSON body instead of table of results
 
 DESCRIPTION
   List recent notifcations for a Notify service
@@ -71,7 +74,7 @@ EXAMPLES
   $ notifycli list serviceName
 ```
 
-_See code: [src/commands/list/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.1.0/src/commands/list/index.js)_
+_See code: [src/commands/list/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/list/index.js)_
 
 ## `notifycli pdf SERVICENAME NOTIFICATIONID`
 
@@ -79,11 +82,14 @@ Get PDF for a letter notifcation
 
 ```
 USAGE
-  $ notifycli pdf SERVICENAME NOTIFICATIONID
+  $ notifycli pdf SERVICENAME NOTIFICATIONID [-f <value>]
 
 ARGUMENTS
   SERVICENAME     The name of the Notify service
   NOTIFICATIONID  The ID of the notification
+
+FLAGS
+  -f, --file=<value>  Set the output filename, default: $notificationId.pdf
 
 DESCRIPTION
   Get PDF for a letter notifcation
@@ -92,11 +98,11 @@ EXAMPLES
   $ notifycli pdf pdf serviceName notificationId
 ```
 
-_See code: [src/commands/pdf/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.1.0/src/commands/pdf/index.js)_
+_See code: [src/commands/pdf/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/pdf/index.js)_
 
 ## `notifycli service`
 
-Show registered Notify services
+List, add and remove Notify services
 
 ```
 USAGE
@@ -106,9 +112,11 @@ FLAGS
   -v, --verbose  Show service names and API keys
 
 DESCRIPTION
-  Show registered Notify services
+  List, add and remove Notify services
 
 EXAMPLES
+  List configured Notify services:
+
   $ notifycli service
   myservice
 
@@ -116,7 +124,7 @@ EXAMPLES
   myservice api-key
 ```
 
-_See code: [src/commands/service/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.1.0/src/commands/service/index.js)_
+_See code: [src/commands/service/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/service/index.js)_
 
 ## `notifycli service add SERVICENAME APIKEY`
 
@@ -137,7 +145,7 @@ EXAMPLES
   $ notifycli service add myServiceName myApiKey
 ```
 
-_See code: [src/commands/service/add.js](https://github.com/gunjam/nofitfy-cli/blob/v0.1.0/src/commands/service/add.js)_
+_See code: [src/commands/service/add.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/service/add.js)_
 
 ## `notifycli service remove SERVICENAME`
 
@@ -157,7 +165,7 @@ EXAMPLES
   $ notifycli service remove myServiceName
 ```
 
-_See code: [src/commands/service/remove.js](https://github.com/gunjam/nofitfy-cli/blob/v0.1.0/src/commands/service/remove.js)_
+_See code: [src/commands/service/remove.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/service/remove.js)_
 
 ## `notifycli status SERVICENAME NOTIFICATIONID`
 
@@ -165,11 +173,14 @@ Get the status of a notification
 
 ```
 USAGE
-  $ notifycli status SERVICENAME NOTIFICATIONID
+  $ notifycli status SERVICENAME NOTIFICATIONID [-j]
 
 ARGUMENTS
   SERVICENAME     The name of the Notify service
   NOTIFICATIONID  The ID of the notification
+
+FLAGS
+  -j, --json  Output API JSON body instead of table of data
 
 DESCRIPTION
   Get the status of a notification
@@ -178,5 +189,5 @@ EXAMPLES
   $ notifycli status status serviceName notificationId
 ```
 
-_See code: [src/commands/status/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.1.0/src/commands/status/index.js)_
+_See code: [src/commands/status/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/status/index.js)_
 <!-- commandsstop -->
