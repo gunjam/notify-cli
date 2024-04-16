@@ -11,7 +11,11 @@
   "bin": {
     "notifycli": "./bin/run.js"
   },
-  "files": ["/bin", "/src", "/oclif.manifest.json"],
+  "files": [
+    "/bin",
+    "/src",
+    "/oclif.manifest.json"
+  ],
   "scripts": {
     "lint": "eslint .",
     "prepack": "oclif manifest && oclif readme",
@@ -26,12 +30,15 @@
     "hooks": {
       "init": "./src/hooks/init/load-config"
     },
-    "plugins": ["@oclif/plugin-help"],
+    "plugins": [
+      "@oclif/plugin-help"
+    ],
     "topicSeparator": " "
   },
   "dependencies": {
     "@oclif/core": "^3.26.2",
     "@oclif/plugin-help": "^6.0.20",
+    "color-json": "^3.0.5",
     "notifications-node-client": "^8.0.0",
     "ora": "^8.0.1",
     "tty-table": "^4.2.3"

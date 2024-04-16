@@ -1,8 +1,8 @@
 import {NotifyClient} from 'notifications-node-client'
-import {Args, Command} from '@oclif/core'
+import {Args, Command, Flags} from '@oclif/core'
 import Table from 'tty-table'
 import config from '../../lib/config.js'
-import {formatTimeStamp, errorTable} from '../../utils.js'
+import {formatTimeStamp, errorTable, formatJSON} from '../../utils.js'
 
 export default class Status extends Command {
   static description = 'Get the status of a notification'
@@ -20,13 +20,25 @@ export default class Status extends Command {
     }),
   }
 
+  static flags = {
+    json: Flags.boolean({
+      description: 'Output API JSON body instead of table of data',
+      char: 'j',
+    }),
+  }
+
   async run() {
-    const {args} = await this.parse(Status)
+    const {args, flags} = await this.parse(Status)
     const apiKey = config.getService(args.serviceName)
     const notifyClient = new NotifyClient(apiKey)
 
     try {
       const {data} = await notifyClient.getNotificationById(args.notificationId)
+
+      if (flags.json) {
+        this.log(formatJSON(data))
+        return
+      }
 
       const rows = [
         ['id', data.id],
@@ -77,6 +89,11 @@ export default class Status extends Command {
 
       this.log(table.render())
     } catch (error) {
+      if (error.response?.data && flags.json) {
+        this.log(formatJSON(error.response.data))
+        return
+      }
+
       const table = errorTable(error)
       this.log(table)
     }

@@ -1,3 +1,4 @@
+import cj from 'color-json'
 import Table from 'tty-table'
 
 const date = new Intl.DateTimeFormat('en-GB', {
@@ -32,4 +33,13 @@ export function errorTable(error) {
  */
 export function formatTimeStamp(timestamp) {
   return date.format(new Date(timestamp))
+}
+
+/**
+ * Format JSON object as string and colour if stdout is TTY
+ * @param {obj} input JSON object
+ * @returns {string} formatted JSON string
+ */
+export function formatJSON(obj) {
+  return process.stdout.isTTY ? cj(obj) : JSON.stringify(obj, null, '  ')
 }

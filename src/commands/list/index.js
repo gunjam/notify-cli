@@ -1,8 +1,8 @@
 import {NotifyClient} from 'notifications-node-client'
-import {Command, Args} from '@oclif/core'
+import {Command, Args, Flags} from '@oclif/core'
 import Table from 'tty-table'
 import config from '../../lib/config.js'
-import {formatTimeStamp, errorTable} from '../../utils.js'
+import {formatTimeStamp, errorTable, formatJSON} from '../../utils.js'
 
 export default class List extends Command {
   static description = 'List recent notifcations for a Notify service'
@@ -16,13 +16,25 @@ export default class List extends Command {
     }),
   }
 
+  static flags = {
+    json: Flags.boolean({
+      description: 'Output API JSON body instead of table of results',
+      char: 'j',
+    }),
+  }
+
   async run() {
-    const {args} = await this.parse(List)
+    const {args, flags} = await this.parse(List)
 
     try {
       const apiKey = config.getService(args.serviceName)
       const notifyClient = new NotifyClient(apiKey)
       const {data} = await notifyClient.getNotifications()
+
+      if (flags.json) {
+        this.log(formatJSON(data))
+        return
+      }
 
       if (data.notifications.length === 0) {
         this.log('No notifcations found')
