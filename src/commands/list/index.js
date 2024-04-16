@@ -23,6 +23,12 @@ export default class List extends Command {
       const apiKey = config.getService(args.serviceName)
       const notifyClient = new NotifyClient(apiKey)
       const {data} = await notifyClient.getNotifications()
+
+      if (data.notifications.length === 0) {
+        this.log('No notifcations found')
+        return
+      }
+
       const headers = [{value: 'id'}, {value: 'created_at'}, {value: 'type'}, {value: 'status'}]
 
       const notifications = data.notifications.map((notifcation) => ({
