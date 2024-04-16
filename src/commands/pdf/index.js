@@ -1,6 +1,6 @@
 import {writeFile} from 'node:fs/promises'
 import {NotifyClient} from 'notifications-node-client'
-import {Args, Command} from '@oclif/core'
+import {Args, Command, Flags} from '@oclif/core'
 import config from '../../lib/config.js'
 import {errorTable} from '../../utils.js'
 import ora from 'ora'
@@ -21,10 +21,17 @@ export default class PDF extends Command {
     }),
   }
 
+  static flags = {
+    file: Flags.string({
+      description: 'Set the output filename, default: $notificationId.pdf',
+      char: 'f',
+    }),
+  }
+
   async run() {
-    const {args} = await this.parse(PDF)
+    const {args, flags} = await this.parse(PDF)
     const spinner = ora('Fetching PDF').start()
-    const filename = `${args.notificationId}.pdf`
+    const filename = flags.file || `./${args.notificationId}.pdf`
     const apiKey = config.getService(args.serviceName)
 
     try {
