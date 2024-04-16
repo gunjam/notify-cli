@@ -1,7 +1,0 @@
-{
-  "extends": ["oclif", "prettier"],
-  "env": {
-    "node": true,
-    "mocha": true
-  }
-}

@@ -1,9 +1,9 @@
 import {writeFile} from 'node:fs/promises'
-import {NotifyClient} from 'notifications-node-client'
 import {Args, Command, Flags} from '@oclif/core'
+import {NotifyClient} from 'notifications-node-client'
+import ora from 'ora'
 import config from '../../lib/config.js'
 import {errorTable} from '../../utils.js'
-import ora from 'ora'
 
 export default class PDF extends Command {
   static description = 'Get PDF for a letter notifcation'

@@ -1,8 +1,8 @@
-import {NotifyClient} from 'notifications-node-client'
 import {Args, Command, Flags} from '@oclif/core'
+import {NotifyClient} from 'notifications-node-client'
 import Table from 'tty-table'
 import config from '../../lib/config.js'
-import {formatTimeStamp, errorTable, formatJSON} from '../../utils.js'
+import {errorTable, formatJSON, formatTimeStamp} from '../../utils.js'
 
 export default class Status extends Command {
   static description = 'Get the status of a notification'

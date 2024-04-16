@@ -1,4 +1,4 @@
-import {Command, Args} from '@oclif/core'
+import {Args, Command} from '@oclif/core'
 import config from '../../lib/config.js'
 
 export default class Add extends Command {

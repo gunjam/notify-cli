@@ -1,5 +1,5 @@
-import {join} from 'node:path'
 import {readFile, writeFile} from 'node:fs/promises'
+import {join} from 'node:path'
 
 /**
  * notify-cli config
@@ -17,14 +17,12 @@ class Config {
    * Load the data from the JSON config file into the config
    */
   async load() {
-    try {
-      const data = await readFile(this.#path)
-      const config = JSON.parse(data)
+    const data = await readFile(this.#path)
+    const config = JSON.parse(data)
 
-      for (const [name, apiKey] of Object.entries(config.services)) {
-        this.setService(name, apiKey)
-      }
-    } catch {}
+    for (const [name, apiKey] of Object.entries(config.services)) {
+      this.setService(name, apiKey)
+    }
   }
 
   /**

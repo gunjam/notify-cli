@@ -1,8 +1,8 @@
+import {Args, Command, Flags} from '@oclif/core'
 import {NotifyClient} from 'notifications-node-client'
-import {Command, Args, Flags} from '@oclif/core'
 import Table from 'tty-table'
 import config from '../../lib/config.js'
-import {formatTimeStamp, errorTable, formatJSON} from '../../utils.js'
+import {errorTable, formatJSON, formatTimeStamp} from '../../utils.js'
 
 export default class List extends Command {
   static description = 'List recent notifcations for a Notify service'
