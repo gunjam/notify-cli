@@ -105,6 +105,11 @@ class Config {
    */
   validateServiceName(name) {
     const services = this.getServiceNames()
+
+    if (services.length === 0) {
+      throw new Error(`No Notify services configured, see:\n$ notifycli service add --help`)
+    }
+
     if (!services.includes(name)) {
       throw new Error(
         `Unkown service, expected ${name} to be one of: ${services.join(', ')}\nSee more help with --help`,

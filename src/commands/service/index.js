@@ -2,8 +2,9 @@ import {Command, Flags} from '@oclif/core'
 import config from '../../lib/config.js'
 
 export default class Service extends Command {
-  static description = 'Show registered Notify services'
+  static description = 'List, add and remove Notify services'
   static examples = [
+    'List configured Notify services:',
     `<%= config.bin %> <%= command.id %>\nmyservice`,
     `<%= config.bin %> <%= command.id %> -v\nmyservice api-key`,
   ]
@@ -23,6 +24,13 @@ export default class Service extends Command {
       output += flags.verbose ? `${name}  ${key}\n` : `${name}\n`
     }
 
-    this.log(output.trim())
+    output = output.trim()
+
+    if (output) {
+      this.log(output)
+    } else {
+      this.log('No Notify services configured, see:')
+      this.log('$ notifycli service add --help')
+    }
   }
 }
