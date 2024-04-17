@@ -1,6 +1,6 @@
 {
   "name": "govuk-notify-cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Get info on sent notifications",
   "homepage": "https://github.com/gunjam/nofitfy-cli",
   "bugs": "https://github.com/gunjam/nofitfy-cli/issues",
@@ -11,7 +11,11 @@
   "bin": {
     "notifycli": "./bin/run.js"
   },
-  "files": ["/bin", "/src", "/oclif.manifest.json"],
+  "files": [
+    "/bin",
+    "/src",
+    "/oclif.manifest.json"
+  ],
   "scripts": {
     "lint": "biome check .",
     "prepack": "oclif manifest && oclif readme",
@@ -26,7 +30,9 @@
     "hooks": {
       "init": "./src/hooks/init/load-config"
     },
-    "plugins": ["@oclif/plugin-help"],
+    "plugins": [
+      "@oclif/plugin-help"
+    ],
     "topicSeparator": " "
   },
   "dependencies": {

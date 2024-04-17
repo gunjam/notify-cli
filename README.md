@@ -14,7 +14,7 @@ $ npm install -g govuk-notify-cli
 $ notifycli COMMAND
 running command...
 $ notifycli (--version)
-govuk-notify-cli/0.2.0 darwin-arm64 node-v21.7.1
+govuk-notify-cli/0.3.0 darwin-arm64 node-v21.7.1
 $ notifycli --help [COMMAND]
 USAGE
   $ notifycli COMMAND
@@ -51,7 +51,7 @@ DESCRIPTION
   Display help for notifycli.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.20/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.21/src/commands/help.ts)_
 
 ## `notifycli list SERVICENAME`
 
@@ -74,7 +74,7 @@ EXAMPLES
   $ notifycli list serviceName
 ```
 
-_See code: [src/commands/list/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/list/index.js)_
+_See code: [src/commands/list/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.3.0/src/commands/list/index.js)_
 
 ## `notifycli pdf SERVICENAME NOTIFICATIONID`
 
@@ -98,7 +98,7 @@ EXAMPLES
   $ notifycli pdf pdf serviceName notificationId
 ```
 
-_See code: [src/commands/pdf/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/pdf/index.js)_
+_See code: [src/commands/pdf/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.3.0/src/commands/pdf/index.js)_
 
 ## `notifycli service`
 
@@ -124,7 +124,7 @@ EXAMPLES
   myservice api-key
 ```
 
-_See code: [src/commands/service/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/service/index.js)_
+_See code: [src/commands/service/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.3.0/src/commands/service/index.js)_
 
 ## `notifycli service add SERVICENAME APIKEY`
 
@@ -145,7 +145,7 @@ EXAMPLES
   $ notifycli service add myServiceName myApiKey
 ```
 
-_See code: [src/commands/service/add.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/service/add.js)_
+_See code: [src/commands/service/add.js](https://github.com/gunjam/nofitfy-cli/blob/v0.3.0/src/commands/service/add.js)_
 
 ## `notifycli service remove SERVICENAME`
 
@@ -165,7 +165,7 @@ EXAMPLES
   $ notifycli service remove myServiceName
 ```
 
-_See code: [src/commands/service/remove.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/service/remove.js)_
+_See code: [src/commands/service/remove.js](https://github.com/gunjam/nofitfy-cli/blob/v0.3.0/src/commands/service/remove.js)_
 
 ## `notifycli status SERVICENAME NOTIFICATIONID`
 
@@ -189,5 +189,5 @@ EXAMPLES
   $ notifycli status status serviceName notificationId
 ```
 
-_See code: [src/commands/status/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.2.0/src/commands/status/index.js)_
+_See code: [src/commands/status/index.js](https://github.com/gunjam/nofitfy-cli/blob/v0.3.0/src/commands/status/index.js)_
 <!-- commandsstop -->
