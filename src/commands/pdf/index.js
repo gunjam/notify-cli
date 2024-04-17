@@ -2,7 +2,6 @@ import {writeFile} from 'node:fs/promises'
 import {Args, Command, Flags} from '@oclif/core'
 import {NotifyClient} from 'notifications-node-client'
 import ora from 'ora'
-import config from '../../lib/config.js'
 import {errorTable} from '../../utils.js'
 
 export default class PDF extends Command {
@@ -12,7 +11,6 @@ export default class PDF extends Command {
   static args = {
     serviceName: Args.string({
       description: 'The name of the Notify service',
-      parse: (input) => config.validateServiceName(input),
       required: true,
     }),
     notificationId: Args.string({
@@ -30,9 +28,10 @@ export default class PDF extends Command {
 
   async run() {
     const {args, flags} = await this.parse(PDF)
+
     const spinner = ora('Fetching PDF').start()
     const filename = flags.file || `./${args.notificationId}.pdf`
-    const apiKey = config.getService(args.serviceName)
+    const apiKey = this.config.store.getService(args.serviceName)
 
     try {
       const notifyClient = new NotifyClient(apiKey)

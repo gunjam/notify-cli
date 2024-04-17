@@ -1,5 +1,4 @@
 import {Args, Command} from '@oclif/core'
-import config from '../../lib/config.js'
 
 export default class Add extends Command {
   static description = 'Add a Notify service'
@@ -12,7 +11,7 @@ export default class Add extends Command {
 
   async run() {
     const {args} = await this.parse(Add)
-    config.setService(args.serviceName, args.apiKey)
-    await config.save()
+    this.config.store.setService(args.serviceName, args.apiKey)
+    await this.config.store.save()
   }
 }

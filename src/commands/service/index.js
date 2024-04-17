@@ -1,5 +1,4 @@
-import { Command, Flags } from '@oclif/core'
-import config from '../../lib/config.js'
+import {Command, Flags} from '@oclif/core'
 
 export default class Service extends Command {
   static description = 'List, add and remove Notify services'
@@ -20,7 +19,7 @@ export default class Service extends Command {
     const {flags} = await this.parse(Service)
     let output = ''
 
-    for (const [name, key] of config.getServices()) {
+    for (const [name, key] of this.config.store.getServices()) {
       output += flags.verbose ? `${name}  ${key}\n` : `${name}\n`
     }
 

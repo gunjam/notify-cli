@@ -1,5 +1,4 @@
 import {Args, Command} from '@oclif/core'
-import config from '../../lib/config.js'
 
 export default class Remove extends Command {
   static description = 'Remove a Notify service'
@@ -11,7 +10,7 @@ export default class Remove extends Command {
 
   async run() {
     const {args} = await this.parse(Remove)
-    config.removeService(args.serviceName)
-    await config.save()
+    this.config.store.removeService(args.serviceName)
+    await this.config.store.save()
   }
 }

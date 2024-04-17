@@ -1,7 +1,6 @@
 import {Args, Command, Flags} from '@oclif/core'
 import {NotifyClient} from 'notifications-node-client'
 import Table from 'tty-table'
-import config from '../../lib/config.js'
 import {errorTable, formatJSON, formatTimeStamp} from '../../utils.js'
 
 export default class Status extends Command {
@@ -11,7 +10,6 @@ export default class Status extends Command {
   static args = {
     serviceName: Args.string({
       description: 'The name of the Notify service',
-      parse: (input) => config.validateServiceName(input),
       required: true,
     }),
     notificationId: Args.string({
@@ -29,7 +27,7 @@ export default class Status extends Command {
 
   async run() {
     const {args, flags} = await this.parse(Status)
-    const apiKey = config.getService(args.serviceName)
+    const apiKey = this.config.store.getService(args.serviceName)
     const notifyClient = new NotifyClient(apiKey)
 
     try {
