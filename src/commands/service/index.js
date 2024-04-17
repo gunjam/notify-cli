@@ -1,4 +1,4 @@
-import {Command, Flags} from '@oclif/core'
+import { Command, Flags } from '@oclif/core'
 import config from '../../lib/config.js'
 
 export default class Service extends Command {

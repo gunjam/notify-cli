@@ -1,5 +1,4 @@
-import {readFile, writeFile} from 'node:fs/promises'
-import {join} from 'node:path'
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises'
 
 /**
  * notify-cli config
@@ -8,27 +7,62 @@ class Config {
   #path
   #services = new Map()
 
-  /** @param {string} path The file path of the config JSON file */
-  constructor(path) {
+  init(path) {
+    if (typeof path !== 'string') {
+      throw new TypeError('config file path must be a string')
+    }
+    if (!path.endsWith('.json')) {
+      throw new Error('config file path must end in .json')
+    }
+
     this.#path = path
   }
 
   /**
    * Load the data from the JSON config file into the config
+   * @throws {ReferenceError} if config file path not set
    */
   async load() {
-    const data = await readFile(this.#path)
-    const config = JSON.parse(data)
+    if (typeof this.#path !== 'string') {
+      throw new ReferenceError('path not set, need to init() config with a file path')
+    }
 
-    for (const [name, apiKey] of Object.entries(config.services)) {
-      this.setService(name, apiKey)
+    let existingConfig
+    let data
+
+    try {
+      data = await readFile(this.#path, {encoding: 'utf8'})
+      existingConfig = true
+    } catch {
+      existingConfig = false
+    }
+
+    if (existingConfig) {
+      const config = JSON.parse(data)
+
+      for (const [name, apiKey] of Object.entries(config.services)) {
+        this.setService(name, apiKey)
+      }
     }
   }
 
   /**
    * Save the current config data to disk
+   * @throws {ReferenceError} if config file path not set
    */
   async save() {
+    if (typeof this.#path !== 'string') {
+      throw new ReferenceError('path not set, need to init() config with a file path')
+    }
+
+    const folder = this.#path.substring(0, this.#path.lastIndexOf('/'))
+
+    try {
+      await access(folder)
+    } catch {
+      await mkdir(folder, {recursive: true})
+    }
+
     const config = {
       services: {},
     }
@@ -37,11 +71,7 @@ class Config {
       config.services[name] = apiKey
     }
 
-    try {
-      await writeFile(this.#path, JSON.stringify(config, null, '  '), 'utf8')
-    } catch (error) {
-      console.log(error)
-    }
+    await writeFile(this.#path, JSON.stringify(config, null, '  '), 'utf8')
   }
 
   /**
@@ -118,8 +148,4 @@ class Config {
   }
 }
 
-const configPath = join(import.meta.dirname, '../../', '.config.json')
-const config = new Config(configPath)
-await config.load()
-
-export default config
+export default new Config()
