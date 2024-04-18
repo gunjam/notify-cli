@@ -1,6 +1,6 @@
 {
   "name": "govuk-notify-cli",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Get info on sent notifications",
   "homepage": "https://github.com/gunjam/nofitfy-cli",
   "bugs": "https://github.com/gunjam/nofitfy-cli/issues",
