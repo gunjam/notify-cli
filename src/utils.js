@@ -2,7 +2,7 @@ import cj from 'color-json'
 import Table from 'tty-table'
 
 const date = new Intl.DateTimeFormat('en-GB', {
-  dateStyle: 'long',
+  dateStyle: 'short',
   timeStyle: 'long',
   timeZone: 'Europe/London',
 })
@@ -42,4 +42,15 @@ export function formatTimeStamp(timestamp) {
  */
 export function formatJSON(obj) {
   return process.stdout.isTTY ? cj(obj) : JSON.stringify(obj, null, '  ')
+}
+
+/**
+ * Format empty values in tty-table as red 'null' terminal text.
+ * tty-table seems to convert `null` values to an empty string before passing
+ * to the formatter.
+ * @param {value} input value for cell
+ * @returns {string} formatted text
+ */
+export function formatReference(value) {
+  return value || this.style('null', 'red')
 }

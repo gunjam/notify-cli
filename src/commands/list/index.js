@@ -1,7 +1,7 @@
 import {Args, Command, Flags} from '@oclif/core'
 import {NotifyClient} from 'notifications-node-client'
 import Table from 'tty-table'
-import {errorTable, formatJSON, formatTimeStamp} from '../../utils.js'
+import {errorTable, formatJSON, formatReference, formatTimeStamp} from '../../utils.js'
 
 export default class List extends Command {
   static description = 'List recent notifcations for a Notify service'
@@ -16,9 +16,13 @@ export default class List extends Command {
 
   static flags = {
     type: Flags.string({
-      description: 'The type of notifications to list',
+      description: 'Filter notifications by type',
       char: 't',
       options: ['email', 'sms', 'letter'],
+    }),
+    reference: Flags.string({
+      description: 'Filter notifications by reference',
+      char: 'r',
     }),
     json: Flags.boolean({
       description: 'Output API JSON body instead of table of results',
@@ -32,7 +36,7 @@ export default class List extends Command {
 
     try {
       const notifyClient = new NotifyClient(apiKey)
-      const {data} = await notifyClient.getNotifications(flags.type)
+      const {data} = await notifyClient.getNotifications(flags.type, undefined, flags.reference)
 
       if (flags.json) {
         this.log(formatJSON(data))
@@ -44,17 +48,18 @@ export default class List extends Command {
         return
       }
 
-      const headers = [{value: 'id'}, {value: 'created_at'}, {value: 'type'}, {value: 'status'}]
+      const headers = [
+        {value: 'id'},
+        {value: 'created_at', formatter: formatTimeStamp},
+        {value: 'type'},
+        {value: 'status'},
+      ]
 
-      const notifications = data.notifications.map((notifcation) => ({
-        id: notifcation.id,
-        /* eslint-disable-next-line camelcase */
-        created_at: formatTimeStamp(notifcation.created_at),
-        status: notifcation.status,
-        type: notifcation.type,
-      }))
+      if (data.notifications.some((n) => n.reference)) {
+        headers.push({value: 'reference', formatter: formatReference})
+      }
 
-      const table = new Table(headers, notifications, {
+      const table = new Table(headers, data.notifications, {
         headerColor: 'cyan',
         borderColor: 'gray',
       })
