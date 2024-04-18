@@ -15,6 +15,11 @@ export default class List extends Command {
   }
 
   static flags = {
+    type: Flags.string({
+      description: 'The type of notifications to list',
+      char: 't',
+      options: ['email', 'sms', 'letter'],
+    }),
     json: Flags.boolean({
       description: 'Output API JSON body instead of table of results',
       char: 'j',
@@ -27,7 +32,7 @@ export default class List extends Command {
 
     try {
       const notifyClient = new NotifyClient(apiKey)
-      const {data} = await notifyClient.getNotifications()
+      const {data} = await notifyClient.getNotifications(flags.type)
 
       if (flags.json) {
         this.log(formatJSON(data))
